@@ -82,7 +82,6 @@ jobs:
               --region ${AWS_DEFAULT_REGION} \
               --parameters file://.circleci/server/eks-cluster-params.json \
               --capabilities CAPABILITY_NAMED_IAM
-          no_output_timeout: 15m
       - run:
           name: Ensure Nodegroup exists
           command: |
