@@ -82,7 +82,7 @@ jobs:
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://.circleci/server/eks-cluster-params.json \
               --capabilities CAPABILITY_NAMED_IAM
-              no_output_timeout: 30m
+          no_output_timeout: 30m
       - run:
           name: Ensure Nodegroup exists
           command: |
@@ -93,7 +93,46 @@ jobs:
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://.circleci/server/amazon-eks-nodegroup-params.json \
               --capabilities CAPABILITY_NAMED_IAM
+      - run:
+          name: Add nodegroup IP to ansible inventory
+          command: |
+            echo [management] > ~/inventory.txt
+            aws ec2 describe-instances \
+              --region "${AWS_DEFAULT_REGION}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters "Name=tag:Name,Values=udacity-capstone-eks-nodegroup*" \
+              --output text >> ~/inventory.txt
+            cat ~/inventory.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - inventory.txt
 
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["66:5e:74:b3:10:7b:88:b8:23:a3:48:fc:07:48:5c:b4"]
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
+          name: Configure server
+          command: |
+            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
+              then
+                cat ~/inventory.txt
+                echo "Our management instances are already configured."
+              else
+                cat ~/inventory.txt
+                cd ansible
+                ansible-playbook -i ~/inventory.txt configure-server.yml
+              fi
 
   deploy-docker:
     docker:
@@ -101,8 +140,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints:
-            - "66:5e:74:b3:10:7b:88:b8:23:a3:48:fc:07:48:5c:b4"
+          fingerprints: ["66:5e:74:b3:10:7b:88:b8:23:a3:48:fc:07:48:5c:b4"]
       - attach_workspace:
           at: ~/
       - run:
