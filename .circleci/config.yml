@@ -54,7 +54,7 @@ jobs:
           name: Upload Docker to Dockerhub
           command: |
             echo "Docker ID and Image: $DOCKER_IMAGE"
-            cat my_password.txt | docker login --username $DOCKER_USERNAME --password-stdin
+            docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
             docker tag $DOCKER_IMAGE $DOCKER_USERNAME/$DOCKER_IMAGE:${CIRCLE_WORKFLOW_ID:0:7}
             docker push $DOCKERHUB_USERNAME/$DOCKER_IMAGE:${CIRCLE_WORKFLOW_ID:0:7}
 
