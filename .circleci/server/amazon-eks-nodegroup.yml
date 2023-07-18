@@ -1,7 +1,3 @@
-Description: >
-  Capstone project for Cloud DevOps Engineering Nanodegree
-  Author - Sabbir Hossain
-
 Parameters:
   EnvironmentName:
     Description: An Environment name that will be prefixed to resources
