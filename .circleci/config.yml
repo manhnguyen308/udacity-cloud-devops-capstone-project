@@ -68,8 +68,8 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/server/network.yml \
-              --tags project=${ENVIRONMENT_NAME}-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "${ENVIRONMENT_NAME}-eks-network-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
+              --stack-name "udacity-capstone-eks-network-${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://.circleci/server/network-params.json
       - run:
@@ -77,8 +77,8 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/server/eks-cluster.yml \
-              --tags project=${ENVIRONMENT_NAME}-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "${ENVIRONMENT_NAME}-eks-cluster-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
+              --stack-name "udacity-capstone-eks-cluster-${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://.circleci/server/eks-cluster-params.json \
               --capabilities CAPABILITY_NAMED_IAM
@@ -87,8 +87,8 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/server/amazon-eks-nodegroup.yml \
-              --tags project=${ENVIRONMENT_NAME}-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "${ENVIRONMENT_NAME}-eks-nodegroup-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
+              --stack-name "udacity-capstone-eks-nodegroup-${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://.circleci/server/amazon-eks-nodegroup-params.json \
               --capabilities CAPABILITY_NAMED_IAM
