@@ -1,5 +1,5 @@
 [
-  "EnvironmentName=CapstoneProject",
+  "EnvironmentName=capstone-project",
   "MinSize=1",
   "MaxSize=4",
   "DesiredInstances=3",

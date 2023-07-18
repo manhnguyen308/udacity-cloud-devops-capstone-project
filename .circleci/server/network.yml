@@ -1,7 +1,3 @@
-Description: >
-  Sabbir Hossain / Udacity Cloud DevOps
-  Capstone project for Cloud DevOps Engineering Nanodegree
-
 Parameters:
   EnvironmentName:
     Description: An environment name that will be prefixed to resource names
