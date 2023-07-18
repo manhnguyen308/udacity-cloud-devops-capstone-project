@@ -71,7 +71,7 @@ jobs:
               --tags project=${CIRCLE_WORKFLOW_ID:0:7}-project \
               --stack-name "${CIRCLE_WORKFLOW_ID:0:7}-eks-network" \
               --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides .circleci/server/network-params.json
+              --parameters .circleci/server/network-params.json
       - run:
           name: Ensure EKS Cluster exists
           command: |
@@ -80,7 +80,7 @@ jobs:
               --tags project=${CIRCLE_WORKFLOW_ID:0:7}-project \
               --stack-name "${CIRCLE_WORKFLOW_ID:0:7}-eks-cluster" \
               --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides .circleci/server/eks-cluster-params.json \
+              --parameters .circleci/server/eks-cluster-params.json \
               --capabilities CAPABILITY_NAMED_IAM
           no_output_timeout: 15m
       - run:
@@ -91,7 +91,7 @@ jobs:
               --tags project=${CIRCLE_WORKFLOW_ID:0:7}-project \
               --stack-name "${CIRCLE_WORKFLOW_ID:0:7}-eks-nodegroup" \
               --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides .circleci/server/amazon-eks-nodegroup-params.json \
+              --parameters .circleci/server/amazon-eks-nodegroup-params.json \
               --capabilities CAPABILITY_NAMED_IAM
 
 
