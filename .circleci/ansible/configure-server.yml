@@ -12,10 +12,9 @@
         update_cache: yes
 
   roles:
-    - install-awscli
-    - install-kubectl
+    - install-dependencies
 
-- name: "Authenticate AWS CLI with AWS"
+- name: "Configure AWS CLI"
   hosts: management
   user: ubuntu
   gather_facts: false

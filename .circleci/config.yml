@@ -101,9 +101,7 @@ jobs:
               --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
               --stack-name "udacity-capstone-eks-server-${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides file://.circleci/server/server-parameters.json \
-              --output text >> ~/checkIfDeployed.txt
-            cat ~/checkIfDeployed.txt
+              --parameter-overrides file://.circleci/server/server-parameters.json
       - run:
           name: Install tar
           command: |
@@ -139,15 +137,9 @@ jobs:
       - run:
           name: Configure server
           command: |
-            if grep -q "No changes to deploy" ~/checkIfDeployed.txt
-              then
-                cat ~/inventory.txt
-                echo "Our management instances are already configured."
-              else
-                cat ~/inventory.txt
-                cd ansible
-                ansible-playbook -i ~/inventory.txt configure-server.yml
-              fi
+            cat ~/inventory.txt
+            cd ansible
+            ansible-playbook -i ~/inventory.txt configure-server.yml
 
   deploy-docker:
     docker:
@@ -184,3 +176,6 @@ workflows:
           filters:
             branches:
               only: [ main ]
+      - configure-infrastructure:
+          requires:
+            - deploy-infrastructure
