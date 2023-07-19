@@ -1,7 +1,7 @@
 ---
 - name: "Server configuration"
   hosts: server
-  user: root
+  user: ubuntu
   gather_facts: false
   become: yes
   become_method: sudo
@@ -16,13 +16,20 @@
         name: [ "unzip" ]
         state: latest
         update_cache: yes
+        
+    - name: "install python for Ansible."
+      become: true
+      apt:
+        name: "python3"
+        state: "latest"
+        update_cache: yes
 
   roles:
     - install-dependencies
 
 - name: "Configure AWS CLI"
   hosts: server
-  user: root
+  user: ubuntu
   gather_facts: false
   become: yes
   vars:
@@ -39,7 +46,7 @@
 
 - name: "Fetch kubectl config"
   hosts: server
-  user: root
+  user: ubuntu
   gather_facts: false
   become: yes
   vars:
