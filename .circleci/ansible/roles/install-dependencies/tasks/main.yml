@@ -16,12 +16,6 @@
   shell: ./aws/install
   args:
     chdir: $HOME
-    
-- name: "Verify AWS installation"
-  become: yes
-  shell: aws -version
-  args:
-    chdir: $HOME
 
 - name: "Download kubectl"
   become: yes
@@ -44,11 +38,5 @@
 - name: "Add path to shell file"
   become: yes
   shell: echo 'export PATH=$PATH:/usr/local/bin' >> .bashrc
-  args:
-    chdir: $HOME
-    
-- name: "Verify kubectl installation"
-  become: yes
-  shell: kubectl version --client
   args:
     chdir: $HOME
