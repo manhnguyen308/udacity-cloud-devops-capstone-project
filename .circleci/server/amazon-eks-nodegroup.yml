@@ -2,6 +2,7 @@ Parameters:
   EnvironmentName:
     Description: An Environment name that will be prefixed to resources
     Type: String
+    Default: capstone-project
 
   ImageID:
     Description: An image ID for EC2 Instance
@@ -14,14 +15,17 @@ Parameters:
   DesiredInstances:
     Description: How many instances should be created.
     Type: Number
+    Default: 3
 
   MinSize:
     Description: Minimum number of web application servers
     Type: String
+    Default: 1
 
   MaxSize:
     Description: Maximum number of web application servers
     Type: String
+    Default: 4
 
 Resources:
   InstanceProfile:
@@ -43,11 +47,11 @@ Resources:
                 - ec2.amazonaws.com
             Action:
               - sts:AssumeRole
-      Path: "/"
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
         - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+      Path: /
 
   NodesSecurityGroup:
     Type: AWS::EC2::SecurityGroup

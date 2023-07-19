@@ -3,6 +3,5 @@
   "MinSize=1",
   "MaxSize=4",
   "DesiredInstances=3",
-  "KeyPairName=manhkeypair",
-  "ImageID=ami-06ca3ca175f37dd66"
+  "KeyPairName=manhkeypair"
 ]
