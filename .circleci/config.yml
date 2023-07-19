@@ -97,11 +97,11 @@ jobs:
           name: Ensure server instances exists
           command: |
             aws cloudformation deploy \
-              --template-file server/server.yml \
+              --template-file .circleci/server/server.yml \
               --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
               --stack-name "udacity-capstone-eks-server-${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides file://server/server-parameters.json \
+              --parameter-overrides file://.circleci/server/server-parameters.json \
               --output text >> ~/checkIfDeployed.txt
             cat ~/checkIfDeployed.txt
       - run:
