@@ -1,22 +1,4 @@
 ---
-- name: "Download AWS CLI package"
-  become: yes
-  shell: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  args:
-    chdir: $HOME
-
-- name: "Extract AWS CLI Package"
-  become: yes
-  shell: unzip awscliv2.zip
-  args:
-    chdir: $HOME
-
-- name: "Install AWS CLI"
-  become: yes
-  shell: ./aws/install
-  args:
-    chdir: $HOME
-
 - name: "Download kubectl"
   become: yes
   shell: curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
