@@ -64,36 +64,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Ensure EKS network exists
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/server/network.yml \
-              --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "udacity-capstone-eks-network-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides file://.circleci/server/network-params.json
-      - run:
-          name: Ensure EKS Cluster exists
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/server/eks-cluster.yml \
-              --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "udacity-capstone-eks-cluster-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides file://.circleci/server/eks-cluster-params.json \
-              --capabilities CAPABILITY_NAMED_IAM
-          no_output_timeout: 30m
-      - run:
-          name: Ensure Nodegroup exists
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/server/amazon-eks-nodegroup.yml \
-              --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "udacity-capstone-eks-nodegroup-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --region ${AWS_DEFAULT_REGION} \
-              --parameter-overrides file://.circleci/server/amazon-eks-nodegroup-params.json \
-              --capabilities CAPABILITY_NAMED_IAM
-      - run:
           name: Ensure server instances exists
           command: |
             aws cloudformation deploy \
@@ -127,7 +97,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["66:5e:74:b3:10:7b:88:b8:23:a3:48:fc:07:48:5c:b4"]
+          fingerprints: ["74:e6:ed:79:43:e4:de:da:53:7c:37:6a:7c:25:49:8b"]
       - attach_workspace:
           at: ~/
       - run:
@@ -147,7 +117,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["66:5e:74:b3:10:7b:88:b8:23:a3:48:fc:07:48:5c:b4"]
+          fingerprints: ["74:e6:ed:79:43:e4:de:da:53:7c:37:6a:7c:25:49:8b"]
       - attach_workspace:
           at: ~/
       - run:
