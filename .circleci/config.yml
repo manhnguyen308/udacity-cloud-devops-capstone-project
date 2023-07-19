@@ -111,7 +111,7 @@ jobs:
       - run:
           name: Add nodegroup IP to ansible inventory
           command: |
-            echo [management] > ~/inventory.txt
+            echo [server] > ~/inventory.txt
             aws ec2 describe-instances \
               --region "${AWS_DEFAULT_REGION}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
