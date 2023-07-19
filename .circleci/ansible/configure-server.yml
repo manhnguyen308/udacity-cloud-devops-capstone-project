@@ -1,7 +1,7 @@
 ---
 - name: "Server configuration"
   hosts: server
-  user: ubuntu
+  user: root
   gather_facts: false
   become: yes
   become_method: sudo
@@ -22,7 +22,7 @@
 
 - name: "Configure AWS CLI"
   hosts: server
-  user: ubuntu
+  user: root
   gather_facts: false
   become: yes
   vars:
@@ -39,7 +39,7 @@
 
 - name: "Fetch kubectl config"
   hosts: server
-  user: ubuntu
+  user: root
   gather_facts: false
   become: yes
   vars:
