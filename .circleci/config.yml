@@ -79,13 +79,13 @@ jobs:
       - run:
           name: Add nodegroup IP to ansible inventory
           command: |
-            echo [server] > ~/inventory.txt
+            echo [server] > .circleci/ansible/inventory.txt
             aws ec2 describe-instances \
               --region "${AWS_DEFAULT_REGION}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filters "Name=tag:Name,Values=capstone-project-server*" \
-              --output text >> ~/inventory.txt
-            cat ~/inventory.txt
+              --output text >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -107,9 +107,9 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cat ~/inventory.txt
             cd .circleci/ansible
-            ansible-playbook -i ~/inventory.txt configure-server.yml
+            cat inventory.txt
+            ansible-playbook -i inventory.txt configure-server.yml
 
   deploy-docker:
     docker:
@@ -127,9 +127,9 @@ jobs:
       - run:
           name: Deploy newest Docker Image
           command: |
-            cat ~/inventory.txt
             cd .circleci/ansible
-            ansible-playbook -i ~/inventory.txt deploy-app.yml
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-app.yml
           no_output_timeout: 2m
 
 workflows:
