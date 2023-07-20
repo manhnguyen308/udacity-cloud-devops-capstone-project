@@ -89,7 +89,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/server/amazon-eks-nodegroup.yml \
               --tags project=udacity-capstone-project-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name "$udacity-capstone-eks-nodegroup-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "udacity-capstone-eks-nodegroup-${CIRCLE_WORKFLOW_ID:0:7}" \
               --region ${AWS_DEFAULT_REGION} \
               --parameter-overrides file://.circleci/server/amazon-eks-nodegroup-params.json \
               --capabilities CAPABILITY_NAMED_IAM
