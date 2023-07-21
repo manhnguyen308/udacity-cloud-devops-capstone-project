@@ -1,11 +1,12 @@
 ---
-- name: "Configure the EKS cluster with kubectl"
-  hosts: management[0]
+- name: "Configure EKS cluster"
+  hosts: server
   user: ubuntu
   gather_facts: false
   become: yes
+  become_method: sudo
+  become_user: root
   vars:
     ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
   roles:
-    - capstone-deployment
-    - capstone-service
+    - kubernetes-manifest

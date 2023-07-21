@@ -39,11 +39,11 @@
     AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
     AWS_DEFAULT_REGION: "{{ lookup('env', 'AWS_DEFAULT_REGION') }}"
   tasks:
-    - name: Set access key
+    - name: Set AWS access key
       shell: "aws configure set aws_access_key_id {{ AWS_ACCESS_KEY_ID }}"
-    - name: Set secret key
+    - name: Set AWS secret key
       shell: "aws configure set aws_secret_access_key {{ AWS_SECRET_ACCESS_KEY }}"
-    - name: Set default region
+    - name: Set AWS default region
       shell: "aws configure set default.region {{ AWS_DEFAULT_REGION }}"
 
 - name: "Fetch kubectl config"
@@ -58,4 +58,4 @@
     ENVIRONMENT_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
   pre_tasks:
     - name: Add new context to kubeconfig
-      shell: "aws eks update-kubeconfig --region us-east-1 --name capstone-project-cluster"
+      shell: "aws eks update-kubeconfig --region {{ AWS_DEFAULT_REGION }} --name capstone-project-cluster"
